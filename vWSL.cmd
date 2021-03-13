@@ -57,7 +57,7 @@ REM ## Configure
 %GO% "cd /tmp ; dpkg -i --force-all ./devuan-keyring_2017.10.03_all.deb ./ca-certificates_20200601~deb9u1_all.deb ./openssl_1.1.0l-1~deb9u1_amd64.deb ./libssl1.1_1.1.0l-1~deb9u1_amd64.deb" > NUL
 %GO% "echo deb     http://deb.devuan.org/merged chimaera main >  /etc/apt/sources.list ; 
 %GO% "echo deb-src http://deb.devuan.org/merged chimaera main >> /etc/apt/sources.list"
-%GO% "cd /tmp ; apt-get update ; touch /etc/mtab ; wget -q %BASE%/deb/libc6_2.30-8_amd64.deb ; wget -q %BASE%/deb/libc-bin_2.30-8_amd64.deb ; apt-get -qq install ./libc6_2.30-8_amd64.deb ./libc-bin_2.30-8_amd64.deb ; apt-mark hold libc6"
+%GO% "cd /tmp ; apt-get clean ; cd /var/lib/apt ; sudo rm -rf lists ; mkdir -p lists/partial ; apt-get clean ; apt-get update"
 %GO% "cd /tmp ; apt-get -y install base-files dirmngr git --no-install-recommends ; wget -q %BASE%/deb/locales_2.30-8_all.deb ; apt-get -y install ./locales_2.30-8_all.deb"
 %GO% "DEBIAN_FRONTEND=noninteractive apt-get -y dist-upgrade --no-install-recommends"
 %GO% "update-locale LC_ALL=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LANG=en_US.UTF-8 ; dpkg-reconfigure --frontend noninteractive locales"
